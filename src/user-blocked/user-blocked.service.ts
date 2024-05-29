@@ -54,6 +54,45 @@ export class UserBlockedService {
     }
   }
 
+  public async findListBlocked(email: string): Promise<any> {
+    try {
+      const data = await this.findListOwner(email);
+      return {
+        data: data,
+        status: 1,
+        message: 'Success request getList blocked'
+      }
+    } catch (error) {
+      return {
+        data: null,
+        status: 2,
+        message: 'Failed request getList blocked detail: ' + error
+      }
+    }
+  }
+
+  public async remove(myEmail : string, anotherEmail : string) {
+    try{
+      const list = await this.userBlockedModel.findOne({emailOwner: myEmail});
+      if(list) {
+        await this.removeUserToList(list, anotherEmail);
+        list.save();
+        return this.validateReseponse(list, "Success request remove user block");
+      } else {
+        return this.validateReseponse(true, "Success request remove  user block");
+      }
+    } catch (error) {
+      return this.validateReseponse(null, `Failed request user blokc, details: ${error}`);
+    }
+  }
+  
+  private async removeUserToList(data: UserBlocked, emailBlock: string) {
+    if(data.emailList.includes(emailBlock)) {
+      data.emailList = data.emailList.filter(row => row != emailBlock)
+    }
+  }
+
+
   private async saveNewList(data: CreateUserBlockedDto) {
     try {
       return await this.userBlockedModel.create(
@@ -74,7 +113,7 @@ export class UserBlockedService {
     }
   }
 
-  private validateReseponse(data: UserBlocked | null, message: string): ResponseBlockeds {
+  private validateReseponse(data: UserBlocked | null | Boolean, message: string): ResponseBlockeds {
     return {
       data: data ? data : null,
       status: data ? 1 : 2,

@@ -8,7 +8,7 @@ export interface ResponseMessage {
 }
 
 export interface ResponseBlockeds {
-    data: UserBlocked | null;
+    data: UserBlocked | null | Boolean;
     message: string; 
     status: number;
 }
