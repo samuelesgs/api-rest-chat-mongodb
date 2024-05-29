@@ -29,7 +29,7 @@ export class UsersService {
     if(messageBlocked) {
       return this.validateResponse(null, `Failed request create message, details: ${messageBlocked}`);
     }
-    const user = await this.userModel.findOne({myEmail});
+    const user = await this.userModel.findOne({email: emailBlock});
     return this.validateResponse(user, `Success request find user`)
   }
 
