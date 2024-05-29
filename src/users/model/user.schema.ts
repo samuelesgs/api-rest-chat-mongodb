@@ -8,6 +8,8 @@ export class User {
     email : string;
     @Prop()
     password : string;
+    @Prop()
+    name : string;
     @Prop({default: null})
     img : string;
     @Prop({default: null})
