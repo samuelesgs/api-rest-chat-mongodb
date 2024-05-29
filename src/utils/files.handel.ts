@@ -19,7 +19,7 @@ export const storage = diskStorage({
 
 export const storageUser = diskStorage({
     destination: (req, file, cb) => {
-        const path = `./imgUsers/`;
+        const path = `./public/imgUsers/`;
         if (!existsSync(path)) {
             mkdirSync(path, { recursive: true });
         }
