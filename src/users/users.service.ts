@@ -44,20 +44,20 @@ export class UsersService {
         await user.save();
         return {
           data: user,
-          staus: 1,
+          status: 1,
           message: 'Success request update user'
         }
       } else {
         return {
           data: null,
-          staus: 2,
+          status: 2,
           message: 'Failed request update user, detail: user not found'
         }
       }
     } catch (error) {
       return {
         data: null,
-        staus: 2,
+        status: 2,
         message: `Failed request update user, detail: ${error}`
       }
     }
