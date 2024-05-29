@@ -31,14 +31,16 @@ export class UserBlockedService {
     try {
       const list = await this.findListOwner(myEmail);
       const anotherList = await this.findListOwner(emailBlock);
-      if(list.emailList.includes(emailBlock)) {
+      if( list && list.emailList.includes(emailBlock)) {
         return `You have blocked user: ${emailBlock}`;
       }
-      if(anotherList.emailList.includes(myEmail)) {
+      if(anotherList && anotherList.emailList.includes(myEmail)) {
         return `User: ${emailBlock} has you blocked`;
       }
       return  null;
     } catch (error) {
+      console.log(error);
+      
       return null;
     }
   }
